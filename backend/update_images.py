@@ -6,23 +6,22 @@ django.setup()
 
 from restaurant.models import MenuItem
 
-images = {
-    "Classic Angus Burger": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80",
-    "Truffle Mushroom Burger": "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&q=80",
-    "Butter Chicken": "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500&q=80",
-    "Chicken Tikka Masala": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500&q=80",
-    "Samosa (2 pcs)": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&q=80",
-    "Chicken Biryani": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&q=80"
+image_map = {
+    'Butter Chicken': 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=800&q=80',
+    'Paneer Butter Masala': 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&q=80',
+    'Chana Masala': 'https://images.unsplash.com/photo-1645177623547-8296fd2d4d42?w=800&q=80',
+    'Dal Makhani': 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80',
+    'Biryani': 'https://images.unsplash.com/photo-1563379091339-03b21bc4a4f8?w=800&q=80',
+    'Naan': 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=800&q=80',
+    'Samosa (2pcs)': 'https://images.unsplash.com/photo-1601050690597-df056fbec701?w=800&q=80',
+    'Tandoori Chicken': 'https://images.unsplash.com/photo-1626074353765-517a681e40be?w=800&q=80',
+    'Palak Paneer': 'https://images.unsplash.com/photo-1610192244261-3f33de8f5f84?w=800&q=80',
+    'Malai Kofta': 'https://images.unsplash.com/photo-1585937421612-7110e3bb17ad?w=800&q=80',
+    'Gulab Jamun': 'https://images.unsplash.com/photo-1624462966581-20a212bbcc0d?w=800&q=80'
 }
 
-default_indian = "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500&q=80"
+for name, url in image_map.items():
+    MenuItem.objects.filter(name=name).update(image_url=url)
+    print(f"Updated Image for {name}")
 
-print("Updating images...")
-for item in MenuItem.objects.all():
-    if item.name in images:
-        item.image_url = images[item.name]
-    elif item.restaurant_name == 'Spice of India':
-        item.image_url = default_indian
-    item.save()
-
-print("Images Updated!")
+print("All Indian food images updated successfully.")
